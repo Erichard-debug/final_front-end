@@ -1,0 +1,60 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 80px;
+    padding: 0 80px;
+    border-bottom: 1px solid rgba(84, 84, 84, 0.5);
+  }
+  
+  .nav__logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav__profile {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .nav__home-btn{
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 24px;
+    font-size: 18px;
+    font-family: "Roboto", Arial, sans-serif;
+    font-weight: 500;
+    color: white;
+  }
+
+  .nav__saved-artcles-btn{
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 24px;
+    font-size: 18px;
+    font-family: "Roboto", Arial, sans-serif;
+    font-weight: 500;
+    color: white;
+  }
+
+  .nav__profile-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 48px;
+    height: 48px;
+    width: 112px;
+    border-color: white;
+    border-style: solid;
+    background: none;
+    cursor: pointer;
+    line-height: 24px;
+    font-size: 18px;
+    font-family: "Roboto", Arial, sans-serif;
+    font-weight: 500;
+    color: white;
+  }
