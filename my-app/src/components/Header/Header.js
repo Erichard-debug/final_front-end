@@ -1,6 +1,6 @@
 import "./Header.css";
 import Navagation from "../Navigation/Navagation";
-import SearchForm from "../SearchForm/SearchForm";
+import Search from "../Search/Searc";
 
 const Header = ({handleRegisterModal}) => {
   console.log("Header");
@@ -14,7 +14,7 @@ const Header = ({handleRegisterModal}) => {
         Find the latest news on any topic and save them in your personal account
       </p>
       </div>
-      <SearchForm/>
+      <Search/>
     </header>
   );
 };

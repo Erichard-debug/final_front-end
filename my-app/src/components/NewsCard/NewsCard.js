@@ -1,7 +1,7 @@
 import "./NewsCard.css"
 
 const NewsCard = () => {
-    console.log("Main");
+    console.log("NewsCard");
 
     return (
       <div className="card">

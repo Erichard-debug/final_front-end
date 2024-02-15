@@ -5,11 +5,17 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import SavedNews from "../SavedNews/SavedNews";
+
+import { CurrentPageContext } from "../../contexts/CurrentPageContext";
 // import { getSearchResults } from "../../utils/NewsApi";
 // import { parseCurrentDate, parsePreviousWeek } from "../../utils/constants";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
+  const [currentPage, setCurrentPage] = useState("");
+  const location = useLocation();
 
   // useEffect(() => {
   //   getSearchResults()
@@ -23,6 +29,10 @@ function App() {
   //       console.error("An error occurred:", error);
   //     });
   // }, []);
+
+  useEffect(() => {
+    setCurrentPage(location.pathname);
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleEscClose = (evt) => {
@@ -63,18 +73,23 @@ function App() {
 
   return (
     <div>
-      <Switch>
-        <Route  exact path="/">
-          <Header handleRegisterModal={handleRegisterModal} />
-          <Main />
-        </Route>
-        <Route path="/saved-news">SavedNews</Route>
-      </Switch>
-      <Footer />
-      {activeModal === "register" && (
-        <RegisterModal handleCloseModal={handleCloseModal} />
-      )}
-      ;
+      <CurrentPageContext.Provider
+        value={{ currentPage, setCurrentPage, activeModal }}
+      >
+        <Switch>
+          <Route exact path="/">
+            <Header handleRegisterModal={handleRegisterModal} />
+            <Main />
+          </Route>
+          <Route path="/saved-news">
+            <SavedNews />
+          </Route>
+        </Switch>
+        <Footer />
+        {activeModal === "register" && (
+          <RegisterModal handleCloseModal={handleCloseModal} />
+        )}
+      </CurrentPageContext.Provider>
     </div>
   );
 }
