@@ -38,7 +38,7 @@
   border-bottom: 3px solid white;
 }
 
-/* .nav__button {
+.nav__button {
   font-family: "Roboto", Arial, sans-serif;
   font-weight: 500;
   font-size: 18px;
@@ -54,7 +54,7 @@
 
 .nav__button:hover {
   cursor: pointer;
-} */
+}
 
 
 

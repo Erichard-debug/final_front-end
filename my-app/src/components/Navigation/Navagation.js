@@ -7,14 +7,14 @@ import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import { CurrentPageContext } from "../../contexts/CurrentPageContext";
 import { useContext } from "react";
 
-const Navagation = () => {
+const Navagation = ({ hanleSignInModal, handleSignOut }) => {
+  const { currentPage, activeModal } = useContext(CurrentPageContext);
+  const { isLoggedIn, currentUser } = useContext(CurrentUserContext);
 
-  const { currentPage } = useContext(CurrentPageContext);
-
-  return currentPage === "/" ? (
+  return isLoggedIn && currentPage === "/" ? (
     <div className="nav">
       <NavLink to="/" className="nav__logo">
-      <img src={logo} alt="logo" />
+        <img src={logo} alt="logo" />
       </NavLink>
       <nav className="nav__links">
         <NavLink
@@ -27,23 +27,19 @@ const Navagation = () => {
         <NavLink to="/saved-news" className="nav__link-news">
           Saved articles
         </NavLink>
-        <button className="nav__button-loggedin">
-          <p className="nav__username-loggedin">Elliott</p>
+        <button className="nav__button-loggedin" onClick={handleSignOut}>
+          <p className="nav__username-loggedin">{currentUser.name}</p>
           <img src={logOutWhite} alt="logout" className="nav__logout" />
         </button>
       </nav>
     </div>
-  ) : currentPage === "/saved-news" ? (
+  ) : isLoggedIn && currentPage === "/saved-news" ? (
     <div className="nav__savednews">
       <NavLink to="/" className="nav__savednews-logo">
-      <img src={logoBlack} alt="logo" />
+        <img src={logoBlack} alt="logo" />
       </NavLink>
       <nav className="nav__savednews-links">
-        <NavLink
-          exact
-          to="/"
-          className="nav__savednews-link"
-        >
+        <NavLink exact to="/" className="nav__savednews-link">
           Home
         </NavLink>
         <NavLink
@@ -54,7 +50,7 @@ const Navagation = () => {
           Saved articles
         </NavLink>
         <button className="nav__savednews-button">
-          <p className="nav__savednews-username">Elliott</p>
+          <p className="nav__savednews-username">{currentUser.name}</p>
           <img
             src={logOutBlack}
             alt="logout"
@@ -64,9 +60,24 @@ const Navagation = () => {
       </nav>
     </div>
   ) : (
-    <div>
+    <div className="nav">
+      <NavLink to="/" className="nav__logo">
+        <img src={logo} alt="logo" />
+      </NavLink>
+      <nav className="nav__links">
+        <NavLink
+          to="/"
+          className="nav__link"
+          activeClassName="nav__link_active"
+        >
+          Home
+        </NavLink>
+        <button className="nav__button" onClick={hanleSignInModal}>
+          Sign In
+        </button>
+      </nav>
     </div>
   );
-}
-  
+};
+
 export default Navagation;

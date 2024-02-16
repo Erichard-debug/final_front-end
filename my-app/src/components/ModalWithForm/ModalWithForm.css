@@ -1,56 +1,85 @@
 .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-  .modal__content {
-    background-color: white;
-    position: relative;
-    max-width: 430px;
-    width: 100%;
-    border-radius: 16px;
-    padding: 34px 36px;
-  }
-  .modal__submit-button {
-    width: 360px;
-    height: 64px;
-    color: rgba(255, 255, 255, 1);
-    font-family: "Roboto", Arial, sans-serif;
-    font-weight: 900;
-    font-size: 18px;
-    line-height: 24px;
-    border-radius: 64px;
-    border: 0;
-    background: #2F71E5;
-    ;
-  }
-  .modal__header {
-    color: #000;
-    font-family: "Roboto", Arial, sans-serif;
-    font-size: 24px;
-    font-weight: 900;
-    line-height: 28px;
-    margin: 0;
-  }
-  .modal__close-button {
-    border: 0;
-    width: 40px;
-    height: 40px;
-    background: url(../../images/close.svg) no-repeat center;
-    position: absolute;
-    top: -30px;
-    right: -38px;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal__content {
+  background-color: white;
+  position: relative;
+  max-width: 430px;
+  width: 100%;
+  border-radius: 16px;
+  padding: 34px 36px;
+}
+.modal__submit-button {
+  width: 360px;
+  height: 64px;
+  color: rgba(255, 255, 255, 1);
+  font-family: "Roboto", Arial, sans-serif;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 24px;
+  border-radius: 64px;
+  border: 0;
+  background: #2f71e5;
+}
 
-  .modal__form{
-    display: flex;
-    align-items: center;
-    
-  }
-  
+.modal__submit-button:hover {
+  cursor: pointer;
+}
+
+.modal__submit-button_disabled {
+  background-color: rgb(230, 232, 235);
+  color: #b6bcbf;
+}
+
+.modal__submit-button_disabled:hover {
+  cursor: default;
+}
+
+.modal__text {
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  margin: 0;
+  text-align: center;
+}
+
+.modal__button-alt {
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  border: none;
+  background-color: transparent;
+  color: #2f71e5;
+  padding: 0;
+}
+
+.modal__header {
+  color: #000;
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 28px;
+  margin: 0;
+}
+.modal__close-button {
+  border: 0;
+  width: 40px;
+  height: 40px;
+  background: url(../../images/close.svg) no-repeat center;
+  position: absolute;
+  top: -30px;
+  right: -38px;
+}
+
+.modal__form {
+  display: flex;
+  align-items: center;
+}

@@ -1,10 +1,14 @@
 import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
 // import SavedNewsCardList from "../SavedNewsCardList/SavedNewsCardList";
 
-const SavedNews = () => {
+const SavedNews = ({
+  handleSignOut,
+  handleRemoveArticle,
+}) => {
   return (
     <div>
-      <SavedNewsHeader/>
+      <SavedNewsHeader handleSignOut={handleSignOut} />
+      <SavedNewsCardList handleRemoveArticle={handleRemoveArticle}/>
     </div>
   );
 };

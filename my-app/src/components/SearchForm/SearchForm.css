@@ -36,6 +36,16 @@
     bottom: -1px;
   }
 
+  .search__form-invalid{
+    font-family: "Inter", Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    position: absolute;
+    color: #f00;
+    top: 30px;
+    left: 23px;
+  }
+
   .search__form-submit:hover {
     cursor: pointer;
     background-color: #347eff;

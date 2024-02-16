@@ -1,38 +1,91 @@
+import "./App.css";
+
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
+import { useState, useEffect } from "react";
+
+import RegisterModal from "../RegisterModal/RegisterModal";
+import SignInModal from "../SignInModal/SigninModal";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
-import "./App.css";
-import { useState, useEffect } from "react";
-import RegisterModal from "../RegisterModal/RegisterModal";
-import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
-import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import SavedNews from "../SavedNews/SavedNews";
 
 import { CurrentPageContext } from "../../contexts/CurrentPageContext";
-// import { getSearchResults } from "../../utils/NewsApi";
-// import { parseCurrentDate, parsePreviousWeek } from "../../utils/constants";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { HasSearchedContext } from "../../contexts/HasSearchedContext";
+import { SearchResultsContext } from "../../contexts/SearchResultsContext";
+import { KeyWordContext } from "../../contexts/KeyWordContext";
+import { SavedArticlesContext } from "../../contexts/SavedArticles";
+
+import { getSearchResults } from "../../utils/NewsApi";
+import { register, signIn, getContent } from "../../utils/auth";
+import {
+  getSavedArticles,
+  addSavedArticle,
+  removeSavedArticle,
+} from "../../utils/Api";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [currentPage, setCurrentPage] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
+  // const [serverError, setServerError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [savedArticles, setSavedArticles] = useState([]);
+  const [keyword, setKeyWord] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [hasSearched, setHasSearched] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const location = useLocation();
-
-  // useEffect(() => {
-  //   getSearchResults()
-  //     .then((data) => {
-  //       const temperature = parseCurrentDate(data);
-  //       setTemp(temperature);
-  //       const locationData = parsePreviousWeek(data);
-  //       setLocation(locationData);
-  //     })
-  //     .catch((error) => {
-  //       console.error("An error occurred:", error);
-  //     });
-  // }, []);
 
   useEffect(() => {
     setCurrentPage(location.pathname);
   }, [location.pathname]);
+
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      getContent(jwt)
+        .then((res) => {
+          if (res) {
+            setCurrentUser(res);
+            setIsLoggedIn(true);
+          }
+        })
+        .then(() => {
+          getSavedArticles(jwt).then((articles) => {
+            setSavedArticles(articles);
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }, [isLoggedIn]);
+
+  const handleSubmit = (request) => {
+    setIsLoading(true);
+
+    request()
+      .then(() => {
+        if (activeModal === "register") {
+          setServerError(false);
+        } else {
+          setServerError(false);
+          handleCloseModal();
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        setServerError(true);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   useEffect(() => {
     const handleEscClose = (evt) => {
@@ -63,6 +116,17 @@ function App() {
     };
   }, []);
 
+  const handleSignIn = (values) => {
+    const makeRequest = () => {
+      return signIn(values).then((user) => {
+        setIsLoggedIn(true);
+        setCurrentUser(user);
+        localStorage.setItem("jwt", user.token);
+      });
+    };
+    handleSubmit(makeRequest);
+  };
+
   const handleCloseModal = () => {
     setActiveModal("");
   };
@@ -71,24 +135,154 @@ function App() {
     setActiveModal("register");
   };
 
+  const handleSignInModal = () => {
+    setActiveModal("Sign In");
+  };
+
+  const handleSignOut = () => {
+    if (mobileMenuOpen) {
+      closeMobileMenu();
+    }
+    setCurrentUser({});
+    localStorage.removeItem("jwt");
+    setIsLoggedIn(false);
+  };
+
+  const handleRegister = (values) => {
+    const makeRequest = () => {
+      return register(values).then((user) => {
+        if (user) {
+          handleSuccessModal();
+        }
+      });
+    };
+    handleSubmit(makeRequest);
+  };
+
+  const handleSaveArticle = ({ newsData, keyword, token }) => {
+    if (!savedArticles.some((article) => article.link === newsData.url)) {
+      addSavedArticle(newsData, keyword, token)
+        .then((data) => {
+          setSavedArticles([data.data, ...savedArticles]);
+          const savedArticleId = data.data._id;
+          const newArticle = { ...newsData, _id: savedArticleId };
+          const newSearchResults = searchResults.map((article) =>
+            article.url === newsData.url ? newArticle : article
+          );
+          setSearchResults(newSearchResults);
+        })
+        .catch((err) => console.error(err));
+    } else if (savedArticles.some((article) => article.link === newsData.url)) {
+      removeSavedArticle(newsData, token)
+        .then(() => {
+          const unsaveNewsArticles = savedArticles.filter(
+            (article) => article._id !== newsData._id
+          );
+          setSavedArticles(unsaveNewsArticles);
+
+          const newArticle = { ...newsData, _id: "" };
+          const newSearchResults = searchResults.map((article) =>
+            article.url === newsData.url ? newArticle : article
+          );
+          setSearchResults(newSearchResults);
+        })
+        .catch((err) => console.error(err));
+    }
+  };
+
+  const handleRemoveArticle = ({ newsData, token }) => {
+    removeSavedArticle(newsData, token)
+      .then(() => {
+        const unsaveNewsArticles = savedArticles.filter(
+          (article) => article._id !== newsData._id
+        );
+        setSavedArticles(unsaveNewsArticles);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const handleAltClick = () => {
+    if (activeModal === "signin") {
+      handleCloseModal();
+      handleRegisterModal();
+    } else {
+      handleCloseModal();
+      handleSignInModal();
+    }
+  };
+
+  const handleSearch = ({ keyword }) => {
+    setKeyWord(keyword);
+    setIsSearching(true);
+    getSearchResults(keyword)
+      .then((res) => {
+        setSearchResults(res.articles);
+        setHasSearched(true);
+        setIsSearching(false);
+        setSearchError(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsSearching(false);
+        setSearchError(true);
+      });
+  };
+
   return (
     <div>
       <CurrentPageContext.Provider
         value={{ currentPage, setCurrentPage, activeModal }}
       >
-        <Switch>
-          <Route exact path="/">
-            <Header handleRegisterModal={handleRegisterModal} />
-            <Main />
-          </Route>
-          <Route path="/saved-news">
-            <SavedNews />
-          </Route>
-        </Switch>
-        <Footer />
-        {activeModal === "register" && (
-          <RegisterModal handleCloseModal={handleCloseModal} />
-        )}
+        <CurrentUserContext.Provider value={{ isLoggedIn, currentUser }}>
+          <HasSearchedContext.Provider value={{ hasSearched }}>
+            <SearchResultsContext.Provider value={{ searchResults }}>
+              <SavedArticlesContext.Provider
+                value={{ savedArticles, setSavedArticles }}
+              >
+                <KeyWordContext.Provider value={{ keyword, setKeyWord }}>
+                  <Switch>
+                    <Route exact path="/">
+                      <Header
+                        handleSignInModal={handleSignInModal}
+                        handleSignOut={handleSignOut}
+                        handleSearch={handleSearch}
+                      />
+                      <Main
+                        handleRegisterModal={handleRegisterModal}
+                        handleSaveArticle={handleSaveArticle}
+                        handleRemoveArticle={handleRemoveArticle}
+                        isLoading={isSearching}
+                      />
+                    </Route>
+                    <ProtectedRoute path="/saved-news">
+                      <SavedNews
+                        handleSignOut={handleSignOut}
+                        handleRemoveArticle={handleRemoveArticle}
+                      />
+                    </ProtectedRoute>
+                  </Switch>
+                  <Footer />
+                  {activeModal === "signin" && (
+                    <SignInModal
+                      handleCloseModal={handleCloseModal}
+                      handleSignIn={handleSignIn}
+                      handleAltClick={handleAltClick}
+                      isLoading={isLoading}
+                    />
+                  )}
+                  {activeModal === "register" && (
+                    <RegisterModal
+                      handleCloseModal={handleCloseModal}
+                      handleAltClick={handleAltClick}
+                      handleRegister={handleRegister}
+                      isLoading={isLoading}
+                    />
+                  )}
+                </KeyWordContext.Provider>
+              </SavedArticlesContext.Provider>
+            </SearchResultsContext.Provider>
+          </HasSearchedContext.Provider>
+        </CurrentUserContext.Provider>
       </CurrentPageContext.Provider>
     </div>
   );
