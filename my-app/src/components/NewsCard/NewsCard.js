@@ -2,12 +2,12 @@ import "./NewsCard.css";
 import { CurrentPageContext } from "../../contexts/CurrentPageContext";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { KeyWordContext } from "../../contexts/KeyWordContext";
-import { SavedArticlesContext } from "../../contexts/SavedArticles";
+import { SavedArticlesContext } from "../../contexts/SavedArticlesContext";
 import { useContext, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 const NewsCard = ({
-  handleRegisterModal,
+  onSignUp,
   newsData,
   handleSaveArticle,
   handleRemoveArticle,
@@ -90,7 +90,7 @@ const NewsCard = ({
           </div>
           <button
             className="card__button-bookmark"
-            onClick={handleRegisterModal}
+            onClick={onSignUp}
             onMouseEnter={() => {
               setIsHovered(true);
             }}

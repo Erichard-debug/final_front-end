@@ -1,21 +1,43 @@
 import "./Navagation.css";
+import Mobile from "../Mobile/Mobile";
 import logo from "../../images/NewsExplorer-white.svg";
 import logoBlack from "../../images/NewsExplorer.svg";
 import logOutWhite from "../../images/logout-white.svg";
 import logOutBlack from "../../images/logout.svg";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import { CurrentPageContext } from "../../contexts/CurrentPageContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { MobileContext } from "../../contexts/MobileContext";
 import { useContext } from "react";
 
-const Navagation = ({ hanleSignInModal, handleSignOut }) => {
+const Navagation = ({ onSignIn, onSignOut }) => {
   const { currentPage, activeModal } = useContext(CurrentPageContext);
   const { isLoggedIn, currentUser } = useContext(CurrentUserContext);
+  const { mobileMenuOpen, openMobileMenu, closeMobileMenu } =
+    useContext(MobileContext);
+
+    const handleMobileMenu = () => {
+      if (mobileMenuOpen === false) {
+        openMobileMenu();
+      } else {
+        closeMobileMenu();
+      }
+    };
 
   return isLoggedIn && currentPage === "/" ? (
-    <div className="nav">
+    <div className={`nav ${mobileMenuOpen === true ? "nav__menu-open" : ""}`}>
       <NavLink to="/" className="nav__logo">
         <img src={logo} alt="logo" />
       </NavLink>
+      <button
+        className={`nav__menu-button ${
+          mobileMenuOpen === true ? "nav__menu-button_open" : ""
+        }`}
+        onClick={handleMobileMenu}
+      />
+      {mobileMenuOpen && (
+        <Mobile onSignIn={onSignIn} onSignOut={onSignOut} />
+      )}
       <nav className="nav__links">
         <NavLink
           to="/"
@@ -27,17 +49,24 @@ const Navagation = ({ hanleSignInModal, handleSignOut }) => {
         <NavLink to="/saved-news" className="nav__link-news">
           Saved articles
         </NavLink>
-        <button className="nav__button-loggedin" onClick={handleSignOut}>
+        <button className="nav__button-loggedin" onClick={onSignOut}>
           <p className="nav__username-loggedin">{currentUser.name}</p>
           <img src={logOutWhite} alt="logout" className="nav__logout" />
         </button>
       </nav>
     </div>
   ) : isLoggedIn && currentPage === "/saved-news" ? (
-    <div className="nav__savednews">
+    <div className={`nav__savednews ${mobileMenuOpen ? "nav__savednews_open" : ""}`}>
       <NavLink to="/" className="nav__savednews-logo">
         <img src={logoBlack} alt="logo" />
       </NavLink>
+      <button
+        className="nav__savednews-menu-button"
+        onClick={handleMobileMenu}
+      />
+      {mobileMenuOpen && (
+        <Mobile onSignIn={onSignIn} onSignOut={onSignOut} />
+      )}
       <nav className="nav__savednews-links">
         <NavLink exact to="/" className="nav__savednews-link">
           Home
@@ -60,10 +89,19 @@ const Navagation = ({ hanleSignInModal, handleSignOut }) => {
       </nav>
     </div>
   ) : (
-    <div className="nav">
+    <div className={`nav ${mobileMenuOpen === true ? "nav_menu-open" : ""}`}>
       <NavLink to="/" className="nav__logo">
         <img src={logo} alt="logo" />
       </NavLink>
+      <button
+        className={`nav__menu-button ${
+          activeModal !== "" ? "nav__menu-button_hidden" : ""
+        } ${mobileMenuOpen === true ? "nav__menu-button_open" : ""}`}
+        onClick={handleMobileMenu}
+      />
+      {mobileMenuOpen && (
+        <Mobile onSignIn={onSignIn} onSignOut={onSignOut} />
+      )}
       <nav className="nav__links">
         <NavLink
           to="/"
@@ -72,7 +110,7 @@ const Navagation = ({ hanleSignInModal, handleSignOut }) => {
         >
           Home
         </NavLink>
-        <button className="nav__button" onClick={hanleSignInModal}>
+        <button className="nav__button" onClick={onSignIn}>
           Sign In
         </button>
       </nav>

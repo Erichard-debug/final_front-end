@@ -2,7 +2,7 @@ import Navagation from "../Navigation/Navagation";
 import "./SavedNewsHeader.css";
 import { useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { SavedArticlesContext } from "../../contexts/SavedArticles";
+import { SavedArticlesContext } from "../../contexts/SavedArticlesContext";
 
 const SavedNewsHeader = ({ handleSignOut }) => {
   const { currentUser } = useContext(CurrentUserContext);

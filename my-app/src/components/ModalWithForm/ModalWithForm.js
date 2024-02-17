@@ -10,6 +10,7 @@ const ModalWithForm = ({
   onSubmit,
   handleAltClick,
   altButtonText,
+  isDisabled,
 }) => {
   return (
     <div className={`modal modal__type${name}`}>

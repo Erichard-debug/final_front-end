@@ -6,8 +6,9 @@ const SignInModal = ({
     handleSignIn,
     handleAltClick,
     isLoading,
+    serverError,
   }) => {
-    const { values, errors, isValid, handleChange, resetForm } =
+    const { values, errors, isValid, handleChange} =
       useFormWithValidation({ email: "", password: "" });
   
     const handleSubmit = (evt) => {
@@ -57,11 +58,11 @@ const SignInModal = ({
             />
             <span className="modal__error">{errors.password}</span>
           </label>
-          {/* {serverError && (
+          {serverError && (
             <span className="modal__error-unavailable">
               Incorrect email or password
             </span>
-          )} */}
+          )}
         </div>
       </ModalWithForm>
     );

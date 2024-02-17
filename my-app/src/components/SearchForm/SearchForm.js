@@ -1,7 +1,7 @@
 import "./SearchForm.css";
 import { useForm } from "react-hook-form";
 
-const SearchForm = (handleSearch) => {
+const SearchForm = ({handleSearch}) => {
   const {
     register,
     handleSubmit,
@@ -15,7 +15,7 @@ const SearchForm = (handleSearch) => {
   return (
     <form
       className="search__form"
-      handleSubmit={handleSubmit(handleSearchSubmit)}
+      onSubmit={handleSubmit(handleSearchSubmit)}
     >
       <input
         type="text"

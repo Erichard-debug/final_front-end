@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 
 import RegisterModal from "../RegisterModal/RegisterModal";
 import SignInModal from "../SignInModal/SigninModal";
+import SuccessModal from "../SuccessModal/SuccessModal";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -14,9 +15,10 @@ import SavedNews from "../SavedNews/SavedNews";
 import { CurrentPageContext } from "../../contexts/CurrentPageContext";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { HasSearchedContext } from "../../contexts/HasSearchedContext";
-import { SearchResultsContext } from "../../contexts/SearchResultsContext";
+import { SearchResultContext } from "../../contexts/SearchResultContext";
 import { KeyWordContext } from "../../contexts/KeyWordContext";
-import { SavedArticlesContext } from "../../contexts/SavedArticles";
+import { SavedArticlesContext } from "../../contexts/SavedArticlesContext";
+import { MobileContext } from "../../contexts/MobileContext";
 
 import { getSearchResults } from "../../utils/NewsApi";
 import { register, signIn, getContent } from "../../utils/auth";
@@ -32,13 +34,15 @@ function App() {
   const [currentPage, setCurrentPage] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  // const [serverError, setServerError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [savedArticles, setSavedArticles] = useState([]);
   const [keyword, setKeyWord] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
+  const [searchError, setSearchError] = useState(false);
+  const [serverError, setServerError] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -135,6 +139,10 @@ function App() {
     setActiveModal("register");
   };
 
+  const handleSuccessModal = () => {
+    setActiveModal("success");
+  };
+
   const handleSignInModal = () => {
     setActiveModal("Sign In");
   };
@@ -211,6 +219,14 @@ function App() {
     }
   };
 
+  const openMobileMenu = () => {
+    setMobileMenuOpen(true);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
   const handleSearch = ({ keyword }) => {
     setKeyWord(keyword);
     setIsSearching(true);
@@ -235,52 +251,65 @@ function App() {
       >
         <CurrentUserContext.Provider value={{ isLoggedIn, currentUser }}>
           <HasSearchedContext.Provider value={{ hasSearched }}>
-            <SearchResultsContext.Provider value={{ searchResults }}>
+            <SearchResultContext.Provider value={{ searchResults }}>
               <SavedArticlesContext.Provider
                 value={{ savedArticles, setSavedArticles }}
               >
-                <KeyWordContext.Provider value={{ keyword, setKeyWord }}>
-                  <Switch>
-                    <Route exact path="/">
-                      <Header
-                        handleSignInModal={handleSignInModal}
-                        handleSignOut={handleSignOut}
-                        handleSearch={handleSearch}
+                <MobileContext.Provider
+                  value={{ mobileMenuOpen, openMobileMenu, closeMobileMenu }}
+                >
+                  <KeyWordContext.Provider value={{ keyword, setKeyWord }}>
+                    <Switch>
+                      <Route exact path="/">
+                        <Header
+                          onSignIn={handleSignInModal}
+                          onSignOut={handleSignOut}
+                          handleSearch={handleSearch}
+                        />
+                        <Main
+                          onSignUp={handleRegisterModal}
+                          handleSaveArticle={handleSaveArticle}
+                          handleRemoveArticle={handleRemoveArticle}
+                          isLoading={isSearching}
+                          searchError={searchError}
+                        />
+                      </Route>
+                      <ProtectedRoute path="/saved-news">
+                        <SavedNews
+                          onSignOut={handleSignOut}
+                          handleRemoveArticle={handleRemoveArticle}
+                        />
+                      </ProtectedRoute>
+                    </Switch>
+                    <Footer />
+                    {activeModal === "signin" && (
+                      <SignInModal
+                        handleCloseModal={handleCloseModal}
+                        handleSignIn={handleSignIn}
+                        handleAltClick={handleAltClick}
+                        serverError={serverError}
+                        isLoading={isLoading}
                       />
-                      <Main
-                        handleRegisterModal={handleRegisterModal}
-                        handleSaveArticle={handleSaveArticle}
-                        handleRemoveArticle={handleRemoveArticle}
-                        isLoading={isSearching}
+                    )}
+                    {activeModal === "register" && (
+                      <RegisterModal
+                        handleCloseModal={handleCloseModal}
+                        handleAltClick={handleAltClick}
+                        handleRegister={handleRegister}
+                        serverError={serverError}
+                        isLoading={isLoading}
                       />
-                    </Route>
-                    <ProtectedRoute path="/saved-news">
-                      <SavedNews
-                        handleSignOut={handleSignOut}
-                        handleRemoveArticle={handleRemoveArticle}
+                    )}
+                    {activeModal === "success" && (
+                      <SuccessModal
+                        handleCloseModal={handleCloseModal}
+                        handleAltClick={handleSignInModal}
                       />
-                    </ProtectedRoute>
-                  </Switch>
-                  <Footer />
-                  {activeModal === "signin" && (
-                    <SignInModal
-                      handleCloseModal={handleCloseModal}
-                      handleSignIn={handleSignIn}
-                      handleAltClick={handleAltClick}
-                      isLoading={isLoading}
-                    />
-                  )}
-                  {activeModal === "register" && (
-                    <RegisterModal
-                      handleCloseModal={handleCloseModal}
-                      handleAltClick={handleAltClick}
-                      handleRegister={handleRegister}
-                      isLoading={isLoading}
-                    />
-                  )}
-                </KeyWordContext.Provider>
+                    )}
+                  </KeyWordContext.Provider>
+                </MobileContext.Provider>
               </SavedArticlesContext.Provider>
-            </SearchResultsContext.Provider>
+            </SearchResultContext.Provider>
           </HasSearchedContext.Provider>
         </CurrentUserContext.Provider>
       </CurrentPageContext.Provider>

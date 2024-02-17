@@ -1,4 +1,4 @@
-import { SavedArticlesContext } from "../../contexts/SavedArticles";
+import { SavedArticlesContext } from "../../contexts/SavedArticlesContext";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 import "./SavedNewsCardList.css";

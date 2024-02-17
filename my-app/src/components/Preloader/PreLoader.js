@@ -1,6 +1,6 @@
 import "./PreLoader.css";
 
-const Preloader = () => {
+const PreLoader = () => {
   return (
     <div className="circle-preloader__container">
       <div className="circle-preloader"></div>
@@ -9,4 +9,4 @@ const Preloader = () => {
   );
 };
 
-export default Preloader;
+export default PreLoader;

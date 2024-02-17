@@ -56,8 +56,6 @@
   cursor: pointer;
 }
 
-
-
 .nav__button-loggedin {
   display: flex;
   align-items: center;
@@ -104,8 +102,6 @@
 .nav__link-news:hover {
   cursor: pointer;
 }
-
-/* --------------------- Styles for saved-news page nav --------------------- */
 
 .nav__savednews {
   padding: 0 80px;
@@ -183,7 +179,7 @@
     padding: 0;
   }
 
-  .nav-savednews {
+  .nav__savednews {
     padding: 0;
   }
 }
@@ -265,7 +261,7 @@
     padding: 16px;
   }
 
-  .nav_menu-open {
+  .nav__menu-open {
     background-color: #1a1b22;
     position: fixed;
     top: 0;
@@ -293,9 +289,9 @@
     display: none;
   }
 
-  /* .nav__menu-button_open {
-    background: transparent url(../../images/close-icon.svg) center no-repeat;
-  } */
+  .nav__menu-button_open {
+    background: transparent url(../../images/close.svg) center no-repeat;
+  }
 
   .nav__links {
     display: none;

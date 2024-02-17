@@ -6,8 +6,9 @@ const RegisterModal = ({
   handleAltClick,
   handleRegister,
   isLoading,
+  serverError,
 }) => {
-  const { values, errors, isValid, handleChange, resetForm } =
+  const { values, errors, isValid, handleChange} =
     useFormWithValidation({ email: "", password: "" });
 
   const handleSubmit = (evt) => {
@@ -67,6 +68,11 @@ const RegisterModal = ({
           />
           <span className="modal__error">{errors.name}</span>
         </label>
+        {serverError && (
+            <span className="modal__error-unavailable">
+              Email is unavailable
+            </span>
+          )}
       </div>
     </ModalWithForm>
   );
