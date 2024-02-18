@@ -15,13 +15,14 @@ const RegisterModal = ({
     evt.preventDefault();
     handleRegister(values);
   };
+  
 
   return (
     <ModalWithForm
       title="Sign Up"
       onClose={handleCloseModal}
       buttonText={isLoading ? "Loading..." : "Sign Up"}
-      altButtonText="Sign up"
+      altButtonText="Sign In"
       handleAltClick={handleAltClick}
       onSubmit={handleSubmit}
       isDisabled={!isValid}
@@ -36,7 +37,7 @@ const RegisterModal = ({
             placeholder="Enter Your Email"
             required
             value={values.email}
-            handleChange={handleChange}
+            onChange={handleChange}
           />
         </label>
 
@@ -49,7 +50,7 @@ const RegisterModal = ({
             placeholder="Enter Your Password"
             required
             value={values.password}
-            handleChange={handleChange}
+            onChange={handleChange}
           />
         </label>
 
@@ -64,7 +65,7 @@ const RegisterModal = ({
             placeholder="Enter Your Username"
             required
             value={values.name}
-            handleChange={handleChange}
+            onChange={handleChange}
           />
           <span className="modal__error">{errors.name}</span>
         </label>

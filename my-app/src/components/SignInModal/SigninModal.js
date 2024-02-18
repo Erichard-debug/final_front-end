@@ -27,34 +27,34 @@ const SignInModal = ({
         isDisabled={!isValid}
       >
         <div className="modal__form-content">
-          <label className="modal__input">
+          <label>
             <p className="modal__input-title">Email</p>
             <input
-              className="modal__form-input"
+              className="modal__input"
               type="email"
               name="email"
               placeholder="Email"
               minLength="1"
               required
               value={values.email}
-              handleChange={handleChange}
+              onChange={handleChange}
             />
             <span className="modal__error">
               {errors.email} {""}
             </span>
           </label>
   
-          <label className="modal__input">
+          <label>
             <p className="modal__input-title">Password</p>
             <input
-              className="modal__form-input"
+              className="modal__input"
               type="password"
               name="password"
               placeholder="Password"
               minLength="1"
               required
               value={values.password}
-              handleChange={handleChange}
+              onChange={handleChange}
             />
             <span className="modal__error">{errors.password}</span>
           </label>
