@@ -12,8 +12,8 @@ const Header = ({onSignIn,onSignOut,handleSearch}) => {
       <p className="header__title-des">
         Find the latest news on any topic and save them in your personal account
       </p>
-      </div>
       <SearchForm handleSearch={handleSearch}/>
+      </div>
     </header>
   );
 };

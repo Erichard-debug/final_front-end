@@ -15,6 +15,7 @@
   border: none;
   width: 608px;
   box-sizing: border-box;
+  
 }
 
 .search__form-input::placeholder {
@@ -32,7 +33,7 @@
   background-color: #2f71e5;
   padding: 20.5px 56px;
   position: absolute;
-  right: 454px;
+  right: -1px;
   bottom: -1px;
 }
 
@@ -73,6 +74,7 @@
     display: flex;
     flex-direction: column;
     width: 288px;
+    padding-bottom: 60px;
   }
 
   .search__form-input {
