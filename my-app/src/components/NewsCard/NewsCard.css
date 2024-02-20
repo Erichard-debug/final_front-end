@@ -153,7 +153,7 @@
     cursor: pointer;
   }
 
-  @media screen and (max-width: 980px) {
+  @media screen and (max-width: 768px) {
     .card {
       width: 224px;
       max-height: 420px;
@@ -190,7 +190,7 @@
     }
   }
   
-  @media screen and (max-width: 520px) {
+  @media screen and (max-width: 320px) {
     .card {
       width: 288px;
       height: 440px;

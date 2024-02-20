@@ -94,9 +94,7 @@ function App() {
   useEffect(() => {
     const handleEscClose = (evt) => {
       if (evt.key === "Escape") {
-        {
           handleCloseModal();
-        }
       }
     };
     document.addEventListener("keydown", handleEscClose);

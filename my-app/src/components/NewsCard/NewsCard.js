@@ -21,7 +21,7 @@ const NewsCard = ({
 
   useEffect(() => {
     setCurrentPage(location.pathname);
-  }, [location.pathname]);
+  }, [location.pathname, setCurrentPage]);
 
   const formattedDate = new Date(
     newsData.publishedAt || newsData.date
