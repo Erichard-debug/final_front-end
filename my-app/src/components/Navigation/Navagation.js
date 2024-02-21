@@ -1,7 +1,5 @@
 import "./Navagation.css";
 import Mobile from "../Mobile/Mobile";
-import logo from "../../images/NewsExplorer-white.svg";
-import logoBlack from "../../images/NewsExplorer.svg";
 import logOutWhite from "../../images/logout-white.svg";
 import logOutBlack from "../../images/logout.svg";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
@@ -27,7 +25,7 @@ const Navagation = ({ onSignIn, onSignOut }) => {
   return isLoggedIn && currentPage === "/" ? (
     <div className={`nav ${mobileMenuOpen === true ? "nav__menu-open" : ""}`}>
       <NavLink to="/" className="nav__logo">
-        <img src={logo} alt="logo" />
+        NewsExplorer
       </NavLink>
       <button
         className={`nav__menu-button ${
@@ -58,7 +56,7 @@ const Navagation = ({ onSignIn, onSignOut }) => {
   ) : isLoggedIn && currentPage === "/saved-news" ? (
     <div className={`nav__savednews ${mobileMenuOpen ? "nav__savednews_open" : ""}`}>
       <NavLink to="/" className="nav__savednews-logo">
-        <img src={logoBlack} alt="logo" />
+        NewsExplorer
       </NavLink>
       <button
         className="nav__savednews-menu-button"
@@ -89,9 +87,9 @@ const Navagation = ({ onSignIn, onSignOut }) => {
       </nav>
     </div>
   ) : (
-    <div className={`nav ${mobileMenuOpen === true ? "nav_menu-open" : ""}`}>
+    <div className={`nav ${mobileMenuOpen === true ? "nav__menu-open" : ""}`}>
       <NavLink to="/" className="nav__logo">
-        <img src={logo} alt="logo" />
+        NewsExplorer
       </NavLink>
       <button
         className={`nav__menu-button ${

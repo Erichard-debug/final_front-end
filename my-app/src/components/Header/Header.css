@@ -28,7 +28,7 @@
   font-size: 60px;
   color: white;
   margin: 0;
-  padding-top: 20px;
+  padding-top: 80px;
   line-height: 64px;
   margin: 0 0 32px;
   max-width: 608px;
@@ -45,7 +45,7 @@
   margin: 0 0 88px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 980px) {
   .header {
     max-height: 400px;
   }
@@ -58,6 +58,7 @@
     line-height: 40px;
     margin-bottom: 16px;
     max-width: 385px;
+    padding-top: 38px;
   }
 
   .header__title-des {
@@ -68,9 +69,10 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 520px) {
   .header {
     max-height: 536px;
+    padding-bottom: 32px;
   }
   .header__search {
     display: flex;
@@ -82,9 +84,12 @@
     font-size: 36px;
     margin-bottom: 16px;
     max-width: 285px;
+    padding-top: 30px;
+    margin: 0 0 16px;
   }
 
   .header__title-des {
     max-width: 285px;
+    margin: 0 0 122px;
   }
 }

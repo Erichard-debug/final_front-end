@@ -33,7 +33,7 @@ const SignInModal = ({
               className="modal__input"
               type="email"
               name="email"
-              placeholder="Email"
+              placeholder="Enter Email"
               minLength="1"
               required
               value={values.email}
@@ -50,7 +50,7 @@ const SignInModal = ({
               className="modal__input"
               type="password"
               name="password"
-              placeholder="Password"
+              placeholder="Enter Password"
               minLength="1"
               required
               value={values.password}

@@ -10,6 +10,15 @@
 .nav__menu-button {
   display: none;
 }
+.nav__menu-open {
+  background-color: #1a1b22;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+}
 
 .nav__logo {
   font-family: "Roboto Slab", "Times New Roman", serif;
@@ -112,6 +121,10 @@
 }
 
 .nav__savednews-logo {
+  font-family: "Roboto Slab", "Times New Roman", serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #1a1b22;
   margin: 0;
   text-decoration: none;
 }
@@ -184,7 +197,7 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 980px) {
   .nav {
     padding: 0 40px;
     width: auto;
@@ -254,15 +267,15 @@
   }
 }
 
-@media screen and (min-width: 321px) and (max-width: 600px) {
+@media screen and (min-width: 521px) and (max-width: 600px) {
   .nav__savednews-link_active {
     padding: 22px 10px 20px;
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 520px) {
   .nav {
-    padding: 0 40px;
+    padding: 0 16px;
     min-height: 56px;
     width: auto;
     align-self: stretch;

@@ -15,19 +15,21 @@
   max-width: 430px;
   width: 100%;
   border-radius: 16px;
-  padding: 34px 36px;
+  padding: 34px 36px 28px;
 }
 .modal__submit-button {
   width: 360px;
   height: 64px;
   color: rgba(255, 255, 255, 1);
   font-family: "Roboto", Arial, sans-serif;
-  font-weight: 900;
+  font-weight: 500;
   font-size: 18px;
   line-height: 24px;
-  border-radius: 64px;
+  border-radius: 100px;
   border: 0;
   background: #2f71e5;
+  padding: 20px 0;
+  margin: 10px 38px 16px;
 }
 
 .modal__submit-button:hover {
@@ -75,13 +77,13 @@
   height: 40px;
   background: url(../../images/close.svg) no-repeat center;
   position: absolute;
-  top: -30px;
-  right: -38px;
+  top: -46px;
+  right: -46px;
 }
 
-.modal__form {
+.modal__form-content {
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 
 .modal__error{
