@@ -217,6 +217,7 @@
     .card__title {
       margin-bottom: 14px;
       max-height: 48px;
+      -webkit-line-clamp: 2;
     }
   
     .card__text {
