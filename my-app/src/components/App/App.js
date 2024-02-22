@@ -153,6 +153,9 @@ function App() {
   };
 
   const handleSignInModal = () => {
+    if (mobileMenuOpen) {
+      closeMobileMenu();
+    }
     setActiveModal("signin");
   };
 

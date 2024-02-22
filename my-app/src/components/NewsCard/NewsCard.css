@@ -216,6 +216,7 @@
   
     .card__title {
       margin-bottom: 14px;
+      max-height: 48px;
     }
   
     .card__text {
