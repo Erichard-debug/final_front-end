@@ -1,5 +1,7 @@
 export const baseUrl =
-  process.env.NODE_ENV === "http://localhost:3001";
+  process.env.NODE_ENV === "production"
+    ? "https://api.NewsExplorer.twilightparadox.com"
+    : "http://localhost:3001";
 
 export const checkResponse = (res) => {
   if (res.ok) {
