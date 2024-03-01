@@ -21,7 +21,7 @@ const NewsCardList = ({
     <section className="newscards">
       {hasSearched ? (
         <>
-          <h2 className="newscards__title">Search Results</h2>
+          <h2 className="newscards__title">Search results</h2>
           <div className="newscards__container">
             {searchResults.slice(0, cardsDisplayed).map((result) => {
               return (

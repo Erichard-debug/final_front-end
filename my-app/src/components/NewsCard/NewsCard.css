@@ -202,7 +202,7 @@
     }
   
     .card__image {
-      height: 196px;
+      flex: 1 0 196px;
     }
   
     .card__description {
@@ -216,6 +216,8 @@
   
     .card__title {
       margin-bottom: 14px;
+      max-height: 48px;
+      -webkit-line-clamp: 2;
     }
   
     .card__text {

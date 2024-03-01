@@ -14,21 +14,21 @@ const SearchForm = ({handleSearch}) => {
 
   return (
     <form
-      className="search__form"
+      className="search"
       onSubmit={handleSubmit(handleSearchSubmit)}
     >
       <input
         type="text"
-        className="search__form-input"
+        className="search__input"
         id="search-item"
         name="keyword"
         placeholder="Enter topic"
         {...register("keyword", { required: "Please enter a keyword" })}
       />
       {errors?.keyword && (
-        <p className="search__form-invalid">{errors.keyword.message}</p>
+        <p className="search__invalid">{errors.keyword.message}</p>
       )}
-      <button type="text" className="search__form-submit">
+      <button type="text" className="search__submit">
         Search
       </button>
     </form>

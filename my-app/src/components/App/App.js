@@ -94,9 +94,7 @@ function App() {
   useEffect(() => {
     const handleEscClose = (evt) => {
       if (evt.key === "Escape") {
-        {
           handleCloseModal();
-        }
       }
     };
     document.addEventListener("keydown", handleEscClose);
@@ -131,6 +129,17 @@ function App() {
     handleSubmit(makeRequest);
   };
 
+  const handleRegister = (values) => {
+    const makeRequest = () => {
+      return register(values).then((user) => {
+        if (user) {
+          handleSuccessModal();
+        }
+      });
+    };
+    handleSubmit(makeRequest);
+  };
+
   const handleCloseModal = () => {
     setActiveModal("");
   };
@@ -144,7 +153,10 @@ function App() {
   };
 
   const handleSignInModal = () => {
-    setActiveModal("Sign In");
+    if (mobileMenuOpen) {
+      closeMobileMenu();
+    }
+    setActiveModal("signin");
   };
 
   const handleSignOut = () => {
@@ -154,17 +166,6 @@ function App() {
     setCurrentUser({});
     localStorage.removeItem("jwt");
     setIsLoggedIn(false);
-  };
-
-  const handleRegister = (values) => {
-    const makeRequest = () => {
-      return register(values).then((user) => {
-        if (user) {
-          handleSuccessModal();
-        }
-      });
-    };
-    handleSubmit(makeRequest);
   };
 
   const handleSaveArticle = ({ newsData, keyword, token }) => {

@@ -15,19 +15,21 @@
   max-width: 430px;
   width: 100%;
   border-radius: 16px;
-  padding: 34px 36px;
+  padding: 34px 36px 28px;
 }
 .modal__submit-button {
   width: 360px;
   height: 64px;
   color: rgba(255, 255, 255, 1);
   font-family: "Roboto", Arial, sans-serif;
-  font-weight: 900;
+  font-weight: 500;
   font-size: 18px;
   line-height: 24px;
-  border-radius: 64px;
+  border-radius: 100px;
   border: 0;
   background: #2f71e5;
+  padding: 20px 0;
+  margin: 10px 38px 16px;
 }
 
 .modal__submit-button:hover {
@@ -75,13 +77,13 @@
   height: 40px;
   background: url(../../images/close.svg) no-repeat center;
   position: absolute;
-  top: -30px;
-  right: -38px;
+  top: -46px;
+  right: -46px;
 }
 
-.modal__form {
+.modal__form-content {
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 
 .modal__error{
@@ -102,4 +104,83 @@
   font-size: 12px;
   color: #f00;
   margin: 0 auto;
+}
+.modal__form-content {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 32px;
+}
+.modal__input-title {
+  color: #000;
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 15px;
+  color:#2F71E5;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.modal__input {
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  border: 0;
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 1);
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+}
+
+@media screen and (max-width: 520px) {
+  .modal__content {
+    max-width: 320px;
+    height: 100vh;
+    width: 100%;
+    padding: 0;
+    top: 56px;
+  }
+
+  .modal__close-button {
+    top: -32px;
+    right: 16px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .modal__header {
+    padding: 16px;
+  }
+
+  .modal__form-content {
+    padding: 0 16px 32px 16px;
+  }
+
+  .modal__submit-button {
+    margin: 11px 15px 16px;
+    width: 288px;
+    height: 64px;
+  }
+
+  .modal__input-title {
+    margin-bottom: 0;
+    margin-top: 18px;
+  }
+
+  .modal__input {
+    margin-bottom: 12px;
+    padding: 8px 0;
+    width: 100%;
+    border: none;
+    border-bottom: solid 1px rgba(0, 0, 0, 1);
+  }
+
+  .modal__error {
+    top: 66px;
+  }
+
+  .modal__error-unavailable {
+    margin-top: 10px;
+  }
 }
