@@ -1,6 +1,5 @@
 import { checkResponse, baseUrl } from "./Api";
 
-
 export const register = ({ name, email, password }) => {
   return fetch(`${baseUrl}/signup`, {
     method: "POST",
