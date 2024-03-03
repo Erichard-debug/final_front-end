@@ -1,5 +1,8 @@
 export const baseUrl =
-  process.env.NODE_ENV === "http://localhost:3001";
+  process.env.NODE_ENV === "production"
+    ? "https://api.NewsExplorer.twilightparadox.com"
+    : "http://localhost:3001";
+
 
 export const checkResponse = (res) => {
   if (res.ok) {
@@ -14,7 +17,7 @@ export const getSavedArticles = (token) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      authorization: `Bearer: ${token}`,
+      authorization: `Bearer ${token}`,
     },
   }).then(checkResponse);
 };
@@ -24,7 +27,7 @@ export const addSavedArticle = (newsData, keyword, token) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      authorization: `Bearer: ${token}`,
+      authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       title: newsData.title,
@@ -43,7 +46,7 @@ export const removeSavedArticle = (selectedArticle, token) => {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
-      authorization: `Bearer: ${token}`,
+      authorization: `Bearer ${token}`,
     },
   }).then(checkResponse);
 };

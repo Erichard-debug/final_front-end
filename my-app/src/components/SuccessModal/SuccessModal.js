@@ -1,16 +1,16 @@
 import "./SuccessModal.css";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import Modal from "../Modal/Modal";
 
 const SuccessModal = ({ handleCloseModal, handleAltClick }) => {
   return (
-    <ModalWithForm title="Success!" onClose={handleCloseModal}>
+    <Modal title="Success!" onClose={handleCloseModal}>
       <h3 className="modal__title-success">
         Registration successfully completed!
       </h3>
       <button className="modal__button-success" onClick={handleAltClick}>
         Sign in
       </button>
-    </ModalWithForm>
+    </Modal>
   );
 };
 

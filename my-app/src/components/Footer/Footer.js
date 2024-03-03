@@ -1,16 +1,17 @@
 import "./Footer.css";
 import gitHub from "../../images/github-icon.svg";
 import linkedIn from "../../images/linkedin-icon.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
       <footer className="footer">
-        <p className="footer__text">&copy; 2023 Supersite, Powered by News API</p>
+        <p className="footer__text">&copy; 2024 Supersite, Powered by News API</p>
   
         <div className="footer__links">
-           {/* <Link to="/" className="footer__link">
+           <Link to="/" className="footer__link">
             Home
-          </Link>  */}
+          </Link> 
           <a
             href="https://tripleten.com/"
             className="footer__link"

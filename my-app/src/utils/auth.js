@@ -1,6 +1,5 @@
 import { checkResponse, baseUrl } from "./Api";
 
-
 export const register = ({ name, email, password }) => {
   return fetch(`${baseUrl}/signup`, {
     method: "POST",
@@ -27,7 +26,7 @@ export const getContent = (token) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      authorization: `Bearer: ${token}`,
+      authorization: `Bearer ${token}`,
     },
   }).then(checkResponse);
 };
